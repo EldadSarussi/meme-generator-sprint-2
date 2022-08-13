@@ -1,0 +1,156 @@
+@import "./main.css";
+@import "./tablet.css" screen and (min-width:450px);
+@import "./desktop.css" screen and (min-width:982px);
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-gallery-container {
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    min-height: 100vh;
+    width: 100vw;
+    /* margin: 1vw; */
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 10% 5% 5% auto 10%;
+    grid-template-areas:
+        'header header header'
+        'nav nav nav'
+        'search search upload'
+        'gallery gallery gallery'
+        'footer footer footer'
+    ;
+}
+
+.logo {
+    justify-self: center;
+    text-decoration-color: bisque;
+    font-style: italic;
+    grid-area: header;
+}
+
+.nav-gallery-btn {
+    grid-area: nav;
+    justify-self: left;
+}
+
+.nav-meme-btn {
+    grid-area: nav;
+    justify-self: center;
+}
+
+.file-input-btn {
+    justify-self: top;
+    grid-area: upload;
+    /* margin-right: 2vw; */
+}
+
+.meme-filter-bar {
+    margin-left: 2vw;
+    grid-area: search;
+}
+
+.meme {
+    height: 10vh;
+    display: block;
+}
+
+.gallery {
+    /* display: block; */
+    /* border: 1px solid; */
+    /* padding: 1rem; */
+    margin-left: 5%;
+    grid-area: gallery;
+    display: grid;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    grid-template-columns: repeat(auto-fit,minmax(100px, 150px ));
+}
+
+.footer {
+    grid-area: footer;
+    background-color: gray;
+    height: 10vh;
+}
+
+.meme-maker-container {
+    position: fixed;
+    /* left: 0; */
+    top: 25%;
+    align-self: center;
+    height: 55vh;
+    width: 100vw;
+    /* display: flex; */
+    flex-direction: column;
+    display: none;
+}
+
+.canvas-container {
+    height: 50vh;
+    width: 100vw;
+    margin: 0 auto;
+    /* background-color: lightgray; */
+    /* opacity: 0.5; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    justify-self: center;
+    background-color: azure;
+    /* opacity: 1; */
+    display: block;
+    height: 55vw;
+    width: 55vw;
+    border: 1px solid black;
+}
+
+.btn-container {
+    height: 25vh;
+    width: 100vw;
+    /* opacity: 0.8; */
+    /* background-color: lightgray; */
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+}
+
+.text-inupt-box {
+    display: flex;
+}
+
+.text-input-buttons-container{
+    display: flex;
+}
+
+.icon {
+    width: 1.5vh;
+    height: 1.5vh;
+}
+
+.img-filter-modal {
+    display: none;
+    position: fixed;
+    width: 40vw;
+    height: 40vh;
+    border: 1px solid black;
+
+}
+
+.download-toggle {
+    display: none;
+    position: fixed;
+    width: 40vw;
+    height: 40vh;
+    border: 1px solid black;
+
+}
