@@ -16,7 +16,7 @@
         <div class="logo">EMS MEME.design</div>
 
         <a class="nav-gallery-btn" onclick="hideMemePaintBlock()">Gallery</a>
-        <a class="nav-meme-btn" onclick="showSavedMemes()">Memes</a>
+        <a class="nav-meme-btn" onclick="showSavedMemes()">Saved Memes</a>
         <!-- <a class="nav-about-btn" href="about.html">About</a> -->
 
         <div class="meme-filter-bar">
@@ -32,55 +32,80 @@
     </div>
 
     <div class="meme-maker-container">
-
-        <div class="canvas-container">
-            <canvas id="my-canvas"></canvas>
-        </div>
-
-        <div class="btn-container">
-
-            <div class="text-inupt-box">
-                <input class="input-text" type="text" placeholder="Enter text here" oninput="onSetText(this.value)">
+        <div class="big-box">
+            <div class="canvas-container">
+                <canvas id="my-canvas"></canvas>
             </div>
 
-
-            <div class="text-input-buttons-container">
-                <button class="line-up-btn" onclick="onLinedUp()">&#8593</button>
-                <button class="line-down-btn" onclick="onLinedown()">&#8595</button>
-                <button class="switch-line-btn" onclick="onSwapLines()">&#8595 &#8593</button>
-                <button class="add-line-btn" onclick="onAddLine()">+</button>
-                <button class="trashCan-btn" onclick="onEraseRow()">&#128465</button>
-            </div>
-
-            <div class="text-style-buttons-container">
-                <button class="font-size-up-btn" onclick="onChangeFontSize(5)"><img class="icon"
-                        src="js/img/increase font - icon.png" /></button>
-                <button class="font-size-down-btn" onclick="onChangeFontSize(-5)"><img class="icon"
-                        src="js/img/decrease font - icon.png" /></button>
-                <button class="text-align-btn" onclick="onAlignText('left')"><img class="icon"
-                        src="js/img/align-to-left.png" /></button>
-                <button class="text-align-btn" onclick="onAlignText('center')"><img class="icon"
-                        src="js/img/center-text-alignment.png" /></button>
-                <button class="text-align-btn" onclick="onAlignText('right')"><img class="icon"
-                        src="js/img/align-to-right.png" /></button>
-            </div>
-            <div class="text-font-buttons-container">
-                <select class="font-style" onchange="onChangeFont(this.value)">
-                    <option value="Impact">Impact</option>
-                    <option value="David">David</option>
-                    <option value="Arial">Arial</option>
-                </select>
-                <input class="stroke-color-btn" type="color" name="Stroke color" oninput="onChangeStrokeColor(value)">
-                <input class="font-color-btn" type="color" name="Font color" oninput="onChangeFontColor(value)">
-            </div>
-            <div class="user-files-interaction-container">
-                <button class="save-meme-btn" onclick="onSaveMeme()">Save</button>
-                <button class="download-meme-btn" onclick="onDownLoadMeme()">Donwload</button>
-                <div class="download-toggle">
-                    <a href="#" class="download-meme-yes" onclick="downloadMeme(this)" download>Yes</a>
-                    <a class="download-meme-no" onclick="toggleDownloadModal()" download>No</a>
+            <div class="btn-container">
+                <div class="box-1">
+                    <div class="text-inupt-box">
+                        <input class="input-text" type="text" placeholder="Enter text here"
+                            oninput="onSetText(this.value)">
+                    </div>
+                    <div class="text-input-buttons-container">
+                        <button class="line-up-btn" onclick="onRowSelect(1)">&#8593</button>
+                        <button class="line-down-btn" onclick="onRowSelect(-1)">&#8595</button>
+                        <button class="switch-line-btn" onclick="onSwapLines()">&#8595 &#8593</button>
+                        <button class="add-line-btn" onclick="onAddLine()">+</button>
+                        <button class="trashCan-btn" onclick="onEraseRow()">&#128465</button>
+                    </div>
                 </div>
-                <button class="share-meme-btn">Share on Facebook</button>
+                <div class="box-2">
+                    <div class="text-style-buttons-container">
+                        <button class="font-size-up-btn" onclick="onChangeFontSize(5)"><img class="icon"
+                                src="js/img/increase font - icon.png" /></button>
+                        <button class="font-size-down-btn" onclick="onChangeFontSize(-5)"><img class="icon"
+                                src="js/img/decrease font - icon.png" /></button>
+                        <button class="text-align-btn" onclick="onAlignText('right')"><img class="icon"
+                                src="js/img/align-to-left.png" /></button>
+                        <button class="text-align-btn" onclick="onAlignText('center')"><img class="icon"
+                                src="js/img/center-text-alignment.png" /></button>
+                        <button class="text-align-btn" onclick="onAlignText('left')"><img class="icon"
+                                src="js/img/align-to-right.png" /></button>
+                    </div>
+                    <div class="text-font-buttons-container">
+                        <select class="font-style" onchange="onChangeFont(this.value)">
+                            <option value="Impact">Impact</option>
+                            <option value="David">David</option>
+                            <option value="Arial">Arial</option>
+                        </select>
+                        <input class="stroke-color-btn" type="color" name="Stroke color"
+                            oninput="onChangeStrokeColor(this.value)">
+                        <input class="font-color-btn" type="color" name="Font color"
+                            oninput="onChangeFontColor(this.value)">
+                    </div>
+                </div>
+                <div class="box-3">
+                    <div class="user-files-interaction-container">
+                        <button class="save-meme-btn" onclick="onSaveMeme()">Save</button>
+                        <button class="download-meme-btn" onclick="onDownLoadMeme()">Donwload</button>
+                        <div class="download-toggle">
+                            <a href="#" class="download-meme-yes" onclick="downloadMeme(this)" download>Yes</a>
+                            <a class="download-meme-no" onclick="toggleDownloadModal()" download>No</a>
+                        </div>
+
+                        <div class="share-container">
+                            <button class="share-meme-btn" onclick="uploadImg()">Share on Facebook</button>
+                            <a class="share-btn"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-4">
+                    <div class="user-line-move-interaction-container">
+                        <div class="up-btn">
+                            <button class="move-line-up-btn" onclick="onMoveLine(1)">up</button>
+                        </div>
+                        <div class="left-right-btns">
+                            <button class="move-line-left-btn" onclick="onMoveLine(3)">left</button>
+                            <button class="pad-center"></button>
+                            <button class="move-line-right-btn" onclick="onMoveLine(4)">right</button>
+                        </div>
+                        <div class="down-btn">
+                            <button class="move-line-down-btn" onclick="onMoveLine(2)">down</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

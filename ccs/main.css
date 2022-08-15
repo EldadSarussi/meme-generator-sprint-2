@@ -50,12 +50,13 @@ body {
 .file-input-btn {
     justify-self: top;
     grid-area: upload;
-    /* margin-right: 2vw; */
 }
 
 .meme-filter-bar {
     margin-left: 2vw;
     grid-area: search;
+    display: flex;
+    flex-direction: row;
 }
 
 .meme {
@@ -72,7 +73,7 @@ body {
     display: grid;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
-    grid-template-columns: repeat(auto-fit,minmax(100px, 150px ));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 150px));
 }
 
 .footer {
@@ -83,22 +84,28 @@ body {
 
 .meme-maker-container {
     position: fixed;
-    /* left: 0; */
     top: 25%;
     align-self: center;
     height: 55vh;
     width: 100vw;
     /* display: flex; */
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
     display: none;
 }
 
+.big-box {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 0.5vw;
+    text-align: center;
+    gap: 0.5rem;
+}
+
 .canvas-container {
-    height: 50vh;
+    height: 55vh;
     width: 100vw;
-    margin: 0 auto;
-    /* background-color: lightgray; */
-    /* opacity: 0.5; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,27 +116,14 @@ canvas {
     background-color: azure;
     /* opacity: 1; */
     display: block;
-    height: 55vw;
-    width: 55vw;
+    height: 40vmin;
+    width: 40vmin;
     border: 1px solid black;
 }
 
 .btn-container {
-    height: 25vh;
-    width: 100vw;
-    /* opacity: 0.8; */
-    /* background-color: lightgray; */
     display: flex;
-    align-self: center;
-    flex-direction: column;
-}
-
-.text-inupt-box {
-    display: flex;
-}
-
-.text-input-buttons-container{
-    display: flex;
+    justify-content: space-around;
 }
 
 .icon {
@@ -137,20 +131,119 @@ canvas {
     height: 1.5vh;
 }
 
-.img-filter-modal {
-    display: none;
-    position: fixed;
-    width: 40vw;
-    height: 40vh;
-    border: 1px solid black;
 
-}
 
 .download-toggle {
     display: none;
     position: fixed;
-    width: 40vw;
-    height: 40vh;
-    border: 1px solid black;
+    /* background-color: aliceblue; */
+    /* width: 40vw; */
+    /* height: 40vh; */
+    /* border: 1px solid black; */
 
 }
+
+.box-1 {
+    display: flex;
+    flex-direction: column;
+    /* width: 25vw; */
+}
+
+.text-inupt-box {
+    height: 2rem;
+}
+
+.text-input-buttons-container {
+    display: flex;
+}
+
+.box-2 {
+    display: flex;
+    /* width: 25vw; */
+}
+
+.text-style-buttons-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1vw;
+}
+
+.text-font-buttons-container {
+    display: flex;
+    height: 10vh;
+    flex-direction: column;
+    padding: 1vw;
+}
+
+.box-3 {
+    display: flex;
+    flex-direction: column;
+    /* width: 25vw; */
+}
+
+.user-files-interaction-container{
+    display: flex;
+    flex-direction: column;
+    /* width: 20vw; */
+}
+
+.box-4 {
+    display: block;
+    width: 30vw;
+}
+
+.user-line-move-interaction-container{
+    display: flex;
+    flex-direction: column;
+    min-width: 20vw;
+}
+
+.img-filter-modal{
+    margin-top: 20vh;
+    display: flex;
+    flex-wrap: wrap;
+    display: none;
+    position: fixed;
+    opacity: 0.7;
+    /* width: 40vw; */
+    /* height: 40vh; */
+    /* border: 1px solid black; */
+
+} 
+
+
+.filter {
+    height: 2rem;
+    width: 10rem;
+    background-color: rgb(13, 94, 94);
+    border: 1px solid black;
+    display: block;
+}
+
+.filter-btn{
+    width: 5vh;
+    height: 5vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* .move-line-up-btn{
+    grid-area: up;
+}
+.move-line-down-btn{
+    grid-area: down;
+}
+.move-line-left-btn{
+    grid-area: left;
+}
+.move-line-right-btn{
+    grid-area: right;
+} */

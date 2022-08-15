@@ -21,11 +21,9 @@ function toggleFilterModal() {
     }
     else {
         elFilterModal.style.display = 'block'
+        renderFilters()
     }
 
-    var filtersForDisplay = getFilters()
-    var SearchWordsForDisplay = getSearchWords(filtersForDisplay)
-    console.log(SearchWordsForDisplay)
 }
 
 function renderImgs() {
@@ -51,12 +49,13 @@ function onSelectImg(id) {
 
 function displayMemePaintBlock() {
     document.querySelector('.meme-maker-container').style.display = "block"
-    document.querySelector('.gallery').style.opacity= '0.3'
+    document.querySelector('.gallery').style.display = 'none'
 }
 
 function hideMemePaintBlock() {
     document.querySelector('.meme-maker-container').style.display = "none"
-    document.querySelector('.gallery').style.opacity= '1'
+    document.querySelector('.gallery').style.display= 'grid'
+    renderImgs()
 }
 
 function renderMeme() {
@@ -82,8 +81,9 @@ function drawMeme(line) {
     gCtx.textAlign = `${line.align}`
     gCtx.lineWidth = 2
     gCtx.font = `${line.size}` + 'px' + ' ' + `${line.style}`
-    gCtx.fillStyle = line.color
-    gCtx.strokeStyle = `${line.strokeStyle}`
+    gCtx.fillStyle = line.fontColor
+    gCtx.strokeStyle = ` ${line.strokeColor}`
+    console.log(line);
     if (line.isSelect) {
         drawRect(line)
         gCtx.fillText(line.txt, line.x, line.y)
@@ -98,13 +98,8 @@ function drawMeme(line) {
     }
 }
 
-function onLinedown() {
-    rowDown()
-    renderMeme()
-}
-
-function onLinedUp() {
-    rowUp()
+function onRowSelect(val) {
+    rowSelect(val)
     renderMeme()
 }
 
@@ -115,6 +110,7 @@ function onSwapLines() {
 
 function onAddLine() {
     addLine()
+    renderMeme()
 }
 
 function onEraseRow() {
@@ -129,6 +125,7 @@ function onChangeFontSize(val) {
 
 function onAlignText(val) {
     setTextAlign(val)
+    renderMeme()
 }
 
 function onChangeFont(val) {
@@ -148,20 +145,6 @@ function onChangeFontColor(val) {
 
 function onSaveMeme() {
     saveMemeToStorage()
-}
-
-function _createSearchWords(mat) {
-    var words = []
-    for (var i = 0; i < mat.length; i++) {
-        for (var j = 0; j < mat[i].length; j++) {
-            mat[i][j]
-            if (!words.includes(mat[i][j])) {
-                words.push(mat[i][j])
-                console.log(words)
-            }
-        }
-    }
-
 }
 
 function drawRect(line) {
@@ -208,9 +191,8 @@ function drawMemeForDownload(line) {
     gCtx.textAlign = `${line.align}`
     gCtx.lineWidth = 2
     gCtx.font = `${line.size}` + 'px' + ' ' + `${line.style}`
-    gCtx.fillStyle = line.color
-    console.log(line.color)
-    gCtx.strokeStyle = `${line.strokeStyle}`
+    gCtx.fillStyle = line.fontColor
+    gCtx.strokeStyle = ` ${line.strokeColor}`
     gCtx.fillText(line.txt, line.x, line.y)
     gCtx.fillText(line.txt, line.x, line.y)
     gCtx.strokeText(line.txt, line.x, line.y)
@@ -255,4 +237,86 @@ function resizeCanvas() {
     var elContainer = document.querySelector('.canvas-container');
     gElCanvas.width = elContainer.offsetWidth - 50
     gElCanvas.height = elContainer.offsetHeight - 20
+}
+
+function onMoveLine(val) {
+    moveLine(val)
+    renderMeme()
+}
+
+function showSavedMemes(){
+renderSavedMemes()
+}
+
+function renderSavedMemes() {
+    
+    const imgs = getSavedMemesForDisplay()
+    console.log(imgs)
+    const strHTMLs = imgs.map(
+        (img) =>
+            `
+            <div class="gallery-cell" onclick="onSelectImg(${img.id})">
+            <img class="meme" src="${img.url}"/>
+            </div>
+           `
+    )
+    var elGallery = document.querySelector('.gallery')
+    elGallery.innerHTML = strHTMLs.join('')
+}
+
+function uploadImg() {
+    renderMemeForDownload()
+    const imgDataUrl = gElCanvas.toDataURL("image/jpeg");
+
+    function onSuccess(uploadedImgUrl) {
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        // document.querySelector('.user-msg').innerText = `Your photo is available here: ${uploadedImgUrl}`
+
+        document.querySelector('.share-btn').innerHTML = `
+        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+           Share   
+        </a>`
+    }
+    doUploadImg(imgDataUrl, onSuccess);
+}
+
+function doUploadImg(imgDataUrl, onSuccess) {
+
+    const formData = new FormData();
+    formData.append('img', imgDataUrl)
+
+    fetch('//ca-upload.com/here/upload.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.text())
+        .then((url) => {
+            console.log('Got back live url:', url);
+            onSuccess(url)
+        })
+        .catch((err) => {
+            console.error(err)
+        })
+}
+
+function renderFilters(){
+    const filters = getFilters()
+    const strHTMLs = filters.map(
+        (filter) =>
+            `
+            <div class="filter" onclick="onFilterBy('${filter}')">
+            ${filter}
+            </div>
+           `
+           
+    )
+    var elGallery = document.querySelector('.img-filter-modal')
+    elGallery.innerHTML = strHTMLs.join('')
+}
+
+function onFilterBy(val){
+    toggleFilterModal()
+    setFilter(val)
+    renderImgs()
+    return
 }
